@@ -19,13 +19,13 @@ def plot_explanation(attribution, name, dim, images_folder, save_fig=True):
     data_array = attribution
     plt.title(f'DeepExplain {dim}: {name}')
 
-    if dim = '2d':
+    if dim == '2d':
         data_max = np.max(np.abs(data_array))
         plt.imshow(data_array, cmap='seismic', vmin=-data_max, vmax=data_max)
         plt.colorbar()
         plt.xlabel('index of token')
         plt.ylabel('word vector dimensions')
-    elif dim = '1d':            
+    elif dim == '1d':
         mask1 = data_array < -1e-8
         mask2 = data_array > 1e-8
         plt.bar(np.arange(512)[mask1], data_array[mask1], color = 'blue')
@@ -107,11 +107,11 @@ def main():
         elif l in ("-l"):
             latex = dict()
             for key in attributions_summed.keys():
-                latex[key] = text_to_latex(find_line(f'{dataset_folder}/' + \
-                    'imdb_master.csv', data_index), attributions_summed[key] \
-                    [0]/np.max(np.abs(attributions_summed[key][0])))
-                with open(f'{latex_folder}/{key}_{data_index}.tex', 'w') as 
-                    tex_file: tex_file.write(latex[key])
+                latex[key] = text_to_latex(find_line(f'{dataset_folder}/imdb_master.csv',
+                    data_index), attributions_summed[key][0]/np.max(np.abs(attributions_summed[key][0])))
+                with open(f'{latex_folder}/{key}_{data_index}.tex', 'w') as tex_file:
+                    tex_file.write(latex[key])
+                print(f'wrote latex file {latex_folder}/{key}_{data_index}.tex')
         else:
             sys.exit()
 

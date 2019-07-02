@@ -6,9 +6,11 @@ Code for Individual Module "A Survey of Explainability Methods for Neural Networ
 
 * create & activate environment and `pip install -r requirements.txt`
 
+* install DeepExplain `pip install -e git+https://github.com/marcoancona/DeepExplain.git#egg=deepexplain`
+
 * clone Repository
 
-* rename `sample.config.ini` to `config.ini`
+* copy `sample.config.ini` to `config.ini`
 
 * set folders in `config.ini`
 

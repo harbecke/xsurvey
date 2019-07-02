@@ -9,8 +9,8 @@ from configparser import ConfigParser
 
 def main():
     print(backend.tensorflow_backend._get_available_gpus())
-	
-	config = ConfigParser()
+    
+    config = ConfigParser()
     config.read('config.ini')
 
     model_folder = config.get('DATA FOLDER', 'model')
@@ -22,7 +22,8 @@ def main():
     y_data = np.array(pickle.load(open(f"{preprocessed_folder}/y_test.p", "rb")))
     x_data_padded = pad_sequences(x_data, maxlen=512, dtype='float', padding='post')
 
-    model.evaluate(x_data_padded, y_data, batch_size=32)
+    accuracy = model.evaluate(x_data_padded, y_data, batch_size=32)[1]
+    print(f'accuracy on the test set is {100*accuracy}%')
 
 if __name__ == "__main__":
     main()

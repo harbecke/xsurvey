@@ -1,7 +1,6 @@
 from keras import backend, regularizers
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Activation, Conv1D, Dense, Dropout,
-    GlobalAveragePooling1D
+from keras.layers import Activation, Conv1D, Dense, Dropout, GlobalAveragePooling1D
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.preprocessing.sequence import pad_sequences
@@ -39,18 +38,18 @@ def main():
 
     model = Sequential()
     model.add(Conv1D(filters=256, kernel_size=3,
-        activation='tanh', input_shape=(512, embedding_dims),
+        activation='relu', input_shape=(512, embedding_dims),
         padding='same', kernel_regularizer=regularizers.l2(l2_reg)))
     model.add(Dropout(dropout))
-    model.add(Conv1D(filters=256, kernel_size=3, activation='tanh', 
+    model.add(Conv1D(filters=256, kernel_size=3, activation='relu', 
         padding='same', dilation_rate=2,
         kernel_regularizer=regularizers.l2(l2_reg)))
     model.add(Dropout(dropout))
-    model.add(Conv1D(filters=256, kernel_size=3, activation='tanh', 
+    model.add(Conv1D(filters=256, kernel_size=3, activation='relu', 
         padding='same', dilation_rate=4,
         kernel_regularizer=regularizers.l2(l2_reg)))
     model.add(Dropout(dropout))
-    model.add(Conv1D(filters=256, kernel_size=3, activation='tanh', 
+    model.add(Conv1D(filters=256, kernel_size=3, activation='relu', 
         padding='same', kernel_regularizer=regularizers.l2(l2_reg)))
     model.add(GlobalAveragePooling1D())
     model.add(Dropout(dropout))
@@ -65,7 +64,7 @@ def main():
 
     # training parameters
     batch_size = 128
-    epochs = 5
+    epochs = 20
     model_checkpoint = ModelCheckpoint(f'{model_folder}/deepcnn.hdf5',
         monitor='val_acc', save_best_only=True)
     callbacks_list = [model_checkpoint]
@@ -73,6 +72,7 @@ def main():
     model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs,
               callbacks=callbacks_list, validation_data=(x_val, y_val))
 
+    print(f'wrote model {model_folder}/deepcnn.hdf5')
 
 if __name__ == "__main__":
     main()
