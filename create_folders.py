@@ -6,7 +6,7 @@ def main():
     config = ConfigParser()
     config.read('config.ini')
     
-    for item in list(Config.items('Section')):
+    for _, item in list(config.items('DATA FOLDER')):
         os.makedirs(item, exist_ok=True)
 
 if __name__ == "__main__":
