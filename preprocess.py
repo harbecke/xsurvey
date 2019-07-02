@@ -64,9 +64,10 @@ def main():
     config.read('config.ini')
 
     dataset_folder = config.get('DATA FOLDER', 'dataset')
+    glove_folder = config.get('DATA FOLDER', 'glove')
     preprocessed_folder = config.get('DATA FOLDER', 'preprocessed')
 
-    glove_dict = glove_to_dict(f'{dataset_folder}/glove.840B.300d.txt')
+    glove_dict = glove_to_dict(f'{glove_folder}/glove.840B.300d.txt')
 
     x_train, y_train, x_test, y_test = dataloader(f'{dataset_folder}/imdb_master.csv', glove_dict)
 

@@ -82,7 +82,7 @@ def main():
     images_folder = config.get('DATA FOLDER', 'images')
     latex_folder = config.get('DATA FOLDER', 'latex')
     preprocessed_folder = config.get('DATA FOLDER', 'preprocessed')
-    data_index = config.get('PLOT', 'data_index')
+    data_index = config.getint('PLOT', 'data_index')
 
     matplotlib.rcParams.update({'font.size': 20})
 

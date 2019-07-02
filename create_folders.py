@@ -1,5 +1,5 @@
 import os
-import configparser
+from configparser import ConfigParser
 
 
 def main():

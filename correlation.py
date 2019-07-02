@@ -5,6 +5,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 from itertools import combinations
 import pickle
+from configparser import ConfigParser
 
 from explanations import create_explanations
 
@@ -24,10 +25,15 @@ def main():
     np.random.seed(42)
     thousand_indices = np.random.choice(25000, 1000, replace=False)
 
-    x_data = pickle.load(open("/mnt/hdd/datasets/imdb_glove_pickle/x_test.p",
-        "rb"))
-    y_test = np.array(pickle.load(open("/mnt/hdd/datasets/imdb_glove_pickle/"+\
-        "y_test.p", "rb")))[thousand_indices]
+    config = ConfigParser()
+    config.read('config.ini')
+
+    model_folder = config.get('DATA FOLDER', 'model')
+    preprocessed_folder = config.get('DATA FOLDER', 'preprocessed')
+
+    x_data = pickle.load(open(f"{preprocessed_folder}/x_test.p", "rb"))
+    y_test = np.array(pickle.load(open(f"{preprocessed_folder}/y_test.p",
+        "rb")))[thousand_indices]
     x_test = pad_sequences(x_data[thousand_indices], maxlen=512, dtype='float',
         padding='post')
 
